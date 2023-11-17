@@ -17,9 +17,12 @@ exports.CreateUser = catchAsync(async (req, res, next) => {
   }
   const newUser = await UserModel.create({ name, email, password });
 
+  const JWT = await generateJWT(newUser.id);
+
   return res.status(200).json({
     message: 'succes create',
     newUser,
+    JWT
   });
 });
 
